@@ -7,6 +7,7 @@ import {
   BookOpen, 
   Gamepad2,
   Award,
+  Settings,
   X
 } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -27,6 +28,7 @@ const navigationItems = [
   { id: 'subjects', label: 'Subjects', icon: BookOpen },
   { id: 'games', label: 'Game Types', icon: Gamepad2 },
   { id: 'achievements', label: 'Achievements', icon: Award },
+  { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
 export function Sidebar({ isOpen, onClose, currentView, onViewChange }: SidebarProps) {

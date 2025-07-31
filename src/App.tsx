@@ -4,6 +4,9 @@ import { Header } from './components/Layout/Header';
 import { Sidebar } from './components/Layout/Sidebar';
 import { HomeView } from './components/Views/HomeView';
 import { PlayView } from './components/Views/PlayView';
+import { MultiplayerView } from './components/Views/MultiplayerView';
+import { ProgressView } from './components/Views/ProgressView';
+import { SettingsView } from './components/Views/SettingsView';
 import { UserSetup } from './components/Views/UserSetup';
 import { useGameStore } from './store/gameStore';
 
@@ -24,23 +27,9 @@ function App() {
       case 'play':
         return <PlayView onViewChange={setCurrentView} />;
       case 'multiplayer':
-        return (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-bold mb-4">Multiplayer Coming Soon!</h2>
-            <p className="text-muted-foreground">
-              Collaborative puzzle solving with friends and family is in development.
-            </p>
-          </div>
-        );
+        return <MultiplayerView onViewChange={setCurrentView} />;
       case 'progress':
-        return (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-bold mb-4">Progress Tracking</h2>
-            <p className="text-muted-foreground">
-              Detailed analytics and learning insights coming soon.
-            </p>
-          </div>
-        );
+        return <ProgressView onViewChange={setCurrentView} />;
       case 'subjects':
         return (
           <div className="text-center py-20">
@@ -68,6 +57,8 @@ function App() {
             </p>
           </div>
         );
+      case 'settings':
+        return <SettingsView onViewChange={setCurrentView} />;
       default:
         return <HomeView onViewChange={setCurrentView} />;
     }

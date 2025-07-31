@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Progress } from '../ui/Progress';
 import { PuzzleCard } from './PuzzleCard';
+import { PuzzleRenderer } from './PuzzleRenderer';
 import { useGameStore } from '../../store/gameStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -128,7 +129,7 @@ export function GameSession({ onExit }: GameSessionProps) {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
         >
-          <PuzzleCard
+          <PuzzleRenderer
             puzzle={currentPuzzle}
             onAnswer={handleAnswer}
             onHint={useHint}

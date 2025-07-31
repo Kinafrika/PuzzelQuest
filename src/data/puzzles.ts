@@ -1,4 +1,5 @@
 import { Puzzle, Subject, PuzzleType } from '../types';
+import { extendedPuzzleDatabase, ExtendedPuzzle } from './extendedPuzzles';
 
 export const samplePuzzles: Puzzle[] = [
   // Mathematics - Child Level
@@ -173,11 +174,14 @@ export function getAdaptivePuzzles(
   userLevel: number,
   subjects: Subject[],
   count: number = 5
-): Puzzle[] {
+): (Puzzle | ExtendedPuzzle)[] {
   const targetDifficulty = Math.max(1, Math.min(7, userLevel));
   const difficultyRange = [targetDifficulty - 1, targetDifficulty, targetDifficulty + 1];
   
-  const filtered = samplePuzzles.filter(p => 
+  // Combine both puzzle databases
+  const allPuzzles = [...samplePuzzles, ...extendedPuzzleDatabase];
+  
+  const filtered = allPuzzles.filter(p => 
     difficultyRange.includes(p.difficulty) && 
     subjects.includes(p.subject)
   );
