@@ -1,4 +1,5 @@
 import { ExtendedPuzzle, CrosswordPuzzle, WordSearchPuzzle, RiddlePuzzle, PatternPuzzle, MemoryCardPuzzle } from './puzzleTypes';
+import { ImageScramblePuzzle } from './puzzleTypes';
 import { Subject } from '../types';
 
 export const extendedPuzzleDatabase: ExtendedPuzzle[] = [
@@ -233,7 +234,90 @@ export const extendedPuzzleDatabase: ExtendedPuzzle[] = [
     timeLimit: 300,
     points: 25,
     tags: ['creative-writing', 'storytelling', 'imagination']
-  }
+  },
+
+  // Add more crossword puzzles
+  {
+    id: 'crossword-002',
+    type: 'crossword',
+    subject: 'crossword',
+    difficulty: 3,
+    title: 'Science Terms',
+    description: 'Complete this crossword about scientific concepts',
+    question: 'Fill in the crossword puzzle using the science clues provided',
+    grid: [
+      ['', '', '', 'A', '', ''],
+      ['', '', '', 'T', '', ''],
+      ['E', 'L', 'E', 'C', 'T', 'R', 'O', 'N'],
+      ['', '', '', 'M', '', ''],
+      ['', '', '', '', '', '']
+    ],
+    solution: [
+      ['', '', '', 'A', '', ''],
+      ['', '', '', 'T', '', ''],
+      ['E', 'L', 'E', 'C', 'T', 'R', 'O', 'N'],
+      ['', '', '', 'M', '', ''],
+      ['', '', '', '', '', '']
+    ],
+    clues: [
+      { number: 1, clue: 'Negatively charged particle', answer: 'ELECTRON', direction: 'across', startRow: 2, startCol: 0 },
+      { number: 2, clue: 'Basic unit of matter', answer: 'ATOM', direction: 'down', startRow: 0, startCol: 3 }
+    ],
+    explanation: 'This crossword focuses on basic chemistry and physics concepts',
+    hints: ['Think about the smallest parts of matter', 'One has a negative charge'],
+    timeLimit: 240,
+    points: 35,
+    tags: ['crossword', 'science', 'chemistry', 'physics']
+  } as CrosswordPuzzle,
+
+  // Image Scramble Puzzles
+  {
+    id: 'image-scramble-001',
+    type: 'image-scramble',
+    subject: 'image-puzzle',
+    difficulty: 2,
+    title: 'Solar System Puzzle',
+    description: 'Rearrange the pieces to complete the solar system image',
+    question: 'Put the scrambled pieces in the correct order to reveal the solar system',
+    originalImageUrl: 'https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg?auto=compress&cs=tinysrgb&w=400',
+    scrambledPieces: [
+      { id: '1', imageUrl: 'https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,0,100,100', correctPosition: 0, currentPosition: 2 },
+      { id: '2', imageUrl: 'https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=100,0,100,100', correctPosition: 1, currentPosition: 0 },
+      { id: '3', imageUrl: 'https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,100,100,100', correctPosition: 2, currentPosition: 3 },
+      { id: '4', imageUrl: 'https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=100,100,100,100', correctPosition: 3, currentPosition: 1 }
+    ],
+    gridSize: { rows: 2, cols: 2 },
+    explanation: 'Image puzzles help develop spatial reasoning and visual processing skills',
+    hints: ['Look for edge pieces first', 'Match colors and patterns between adjacent pieces'],
+    timeLimit: 180,
+    points: 25,
+    tags: ['image-puzzle', 'spatial-reasoning', 'visual']
+  } as ImageScramblePuzzle,
+
+  {
+    id: 'image-scramble-002',
+    type: 'image-scramble',
+    subject: 'image-puzzle',
+    difficulty: 3,
+    title: 'Mathematical Diagram',
+    description: 'Reconstruct the mathematical diagram by arranging the pieces',
+    question: 'Arrange the scrambled pieces to complete the geometry diagram',
+    originalImageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=400',
+    scrambledPieces: [
+      { id: '1', imageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,0,133,133', correctPosition: 0, currentPosition: 5 },
+      { id: '2', imageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=133,0,133,133', correctPosition: 1, currentPosition: 2 },
+      { id: '3', imageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=266,0,133,133', correctPosition: 2, currentPosition: 4 },
+      { id: '4', imageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,133,133,133', correctPosition: 3, currentPosition: 1 },
+      { id: '5', imageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=133,133,133,133', correctPosition: 4, currentPosition: 0 },
+      { id: '6', imageUrl: 'https://images.pexels.com/photos/6238297/pexels-photo-6238297.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=266,133,133,133', correctPosition: 5, currentPosition: 3 }
+    ],
+    gridSize: { rows: 2, cols: 3 },
+    explanation: 'Mathematical diagrams help visualize complex concepts and relationships',
+    hints: ['Look for mathematical symbols and equations', 'Connect related formulas and diagrams'],
+    timeLimit: 240,
+    points: 30,
+    tags: ['image-puzzle', 'mathematics', 'geometry']
+  } as ImageScramblePuzzle
 ];
 
 export function getExtendedPuzzlesByType(type: string, count: number = 5): ExtendedPuzzle[] {

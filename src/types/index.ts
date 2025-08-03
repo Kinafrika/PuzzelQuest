@@ -67,12 +67,10 @@ export type PuzzleType =
 export type Subject = 
   | 'mathematics'
   | 'science'
-  | 'language'
-  | 'history'
-  | 'geography'
   | 'logic'
-  | 'memory'
-  | 'creativity';
+  | 'creativity'
+  | 'crossword'
+  | 'image-puzzle';
 
 export interface GameSession {
   id: string;

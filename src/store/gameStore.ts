@@ -11,6 +11,9 @@ interface GameState {
   currentSession: GameSession | null;
   isPlaying: boolean;
   
+  // Theme management
+  theme: 'light' | 'dark' | 'system';
+  
   // UI state
   showSettings: boolean;
   showProfile: boolean;
@@ -28,6 +31,8 @@ interface GameState {
   nextPuzzle: () => void;
   submitAnswer: (answer: string | number, timeSpent: number) => boolean;
   useHint: () => string | null;
+  
+  setTheme: (theme: 'light' | 'dark' | 'system') => void;
   
   setShowSettings: (show: boolean) => void;
   setShowProfile: (show: boolean) => void;
@@ -53,12 +58,10 @@ const defaultStats: UserStats = {
   skillLevels: {
     mathematics: 1,
     science: 1,
-    language: 1,
-    history: 1,
-    geography: 1,
     logic: 1,
-    memory: 1,
     creativity: 1,
+    crossword: 1,
+    'image-puzzle': 1,
   },
   difficultyPreference: 3,
 };
@@ -68,6 +71,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   users: [],
   currentSession: null,
   isPlaying: false,
+  theme: 'system',
   showSettings: false,
   showProfile: false,
   showLeaderboard: false,
@@ -234,6 +238,25 @@ export const useGameStore = create<GameState>((set, get) => ({
     });
 
     return currentPuzzle.hints[hintIndex];
+  },
+
+  setTheme: (theme) => {
+    set({ theme });
+    // Apply theme to document
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else if (theme === 'light') {
+      root.classList.remove('dark');
+    } else {
+      // System theme
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
   },
 
   setShowSettings: (show) => set({ showSettings: show }),

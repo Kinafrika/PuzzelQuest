@@ -88,6 +88,14 @@ export interface JigsawPuzzle extends Omit<Puzzle, 'type' | 'options' | 'correct
   gridSize: { rows: number; cols: number };
 }
 
+// Image scramble puzzle
+export interface ImageScramblePuzzle extends Omit<Puzzle, 'type' | 'options' | 'correctAnswer'> {
+  type: 'image-scramble';
+  originalImageUrl: string;
+  scrambledPieces: { id: string; imageUrl: string; correctPosition: number; currentPosition: number }[];
+  gridSize: { rows: number; cols: number };
+}
+
 export type ExtendedPuzzle = 
   | Puzzle 
   | CrosswordPuzzle 
@@ -99,4 +107,5 @@ export type ExtendedPuzzle =
   | GeographyPuzzle 
   | SciencePuzzle 
   | CodePuzzle 
-  | JigsawPuzzle;
+  | JigsawPuzzle
+  | ImageScramblePuzzle;

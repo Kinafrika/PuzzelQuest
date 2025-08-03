@@ -6,6 +6,7 @@ import { Progress } from '../ui/Progress';
 import { Badge } from '../ui/Badge';
 import { Puzzle } from '../../types';
 import { formatTime, getDifficultyColor } from '../../lib/utils';
+import { AudioPlayer } from '../ui/AudioPlayer';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PuzzleCardProps {
@@ -134,6 +135,9 @@ export function PuzzleCard({
         <div>
           <p className="text-sm text-muted-foreground mb-2">{puzzle.description}</p>
           <p className="text-lg font-medium">{puzzle.question}</p>
+          <div className="mt-2">
+            <AudioPlayer text={puzzle.question} />
+          </div>
         </div>
 
         {renderAnswerInput()}
@@ -175,6 +179,9 @@ export function PuzzleCard({
                   className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg text-sm"
                 >
                   💡 {hint}
+                  <div className="mt-2">
+                    <AudioPlayer text={hint} />
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -204,6 +211,9 @@ export function PuzzleCard({
                 {showExplanation && (
                   <p className="text-sm text-muted-foreground">
                     {puzzle.explanation}
+                    <div className="mt-2">
+                      <AudioPlayer text={puzzle.explanation} />
+                    </div>
                   </p>
                 )}
               </div>

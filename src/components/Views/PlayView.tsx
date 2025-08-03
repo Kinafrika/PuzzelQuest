@@ -22,12 +22,10 @@ export function PlayView({ onViewChange }: PlayViewProps) {
   const subjects: { id: Subject; label: string; icon: string }[] = [
     { id: 'mathematics', label: 'Mathematics', icon: '🔢' },
     { id: 'science', label: 'Science', icon: '🔬' },
-    { id: 'language', label: 'Language', icon: '📚' },
-    { id: 'history', label: 'History', icon: '🏛️' },
-    { id: 'geography', label: 'Geography', icon: '🌍' },
     { id: 'logic', label: 'Logic', icon: '🧩' },
-    { id: 'memory', label: 'Memory', icon: '🧠' },
     { id: 'creativity', label: 'Creativity', icon: '🎨' },
+    { id: 'crossword', label: 'Crossword Puzzles', icon: '📝' },
+    { id: 'image-puzzle', label: 'Image Scramble', icon: '🖼️' },
   ];
 
   const handleSubjectToggle = (subject: Subject) => {

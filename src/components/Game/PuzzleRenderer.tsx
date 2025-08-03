@@ -1,10 +1,12 @@
 import React from 'react';
 import { ExtendedPuzzle, CrosswordPuzzle, WordSearchPuzzle, RiddlePuzzle, PatternPuzzle, MemoryCardPuzzle } from '../../data/puzzleTypes';
+import { ImageScramblePuzzle } from '../../data/puzzleTypes';
 import { CrosswordGame } from './PuzzleTypes/CrosswordGame';
 import { WordSearchGame } from './PuzzleTypes/WordSearchGame';
 import { RiddleGame } from './PuzzleTypes/RiddleGame';
 import { PatternGame } from './PuzzleTypes/PatternGame';
 import { MemoryCardGame } from './PuzzleTypes/MemoryCardGame';
+import { ImageScrambleGame } from './PuzzleTypes/ImageScrambleGame';
 import { PuzzleCard } from './PuzzleCard';
 
 interface PuzzleRendererProps {
@@ -73,6 +75,17 @@ export function PuzzleRenderer({
         return (
           <MemoryCardGame
             puzzle={puzzle as MemoryCardPuzzle}
+            onAnswer={onAnswer}
+            onHint={onHint}
+            showResult={showResult}
+            isCorrect={isCorrect}
+          />
+        );
+      
+      case 'image-scramble':
+        return (
+          <ImageScrambleGame
+            puzzle={puzzle as ImageScramblePuzzle}
             onAnswer={onAnswer}
             onHint={onHint}
             showResult={showResult}

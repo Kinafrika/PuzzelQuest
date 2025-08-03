@@ -87,7 +87,10 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                     {(['light', 'dark', 'system'] as const).map((theme) => (
                       <button
                         key={theme}
-                        onClick={() => handlePreferenceChange('theme', theme)}
+                        onClick={() => {
+                          handlePreferenceChange('theme', theme);
+                          useGameStore.getState().setTheme(theme);
+                        }}
                         className={`p-4 rounded-lg border-2 transition-colors ${
                           preferences.theme === theme
                             ? 'border-primary bg-primary/10'
@@ -95,7 +98,11 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                         }`}
                       >
                         <div className="text-center">
-                          <div className="w-8 h-8 mx-auto mb-2 rounded-full bg-gradient-to-br from-gray-200 to-gray-400" />
+                          <div className={`w-8 h-8 mx-auto mb-2 rounded-full ${
+                            theme === 'light' ? 'bg-gradient-to-br from-yellow-200 to-yellow-400' :
+                            theme === 'dark' ? 'bg-gradient-to-br from-gray-700 to-gray-900' :
+                            'bg-gradient-to-br from-blue-200 to-purple-400'
+                          }`} />
                           <span className="text-sm font-medium capitalize">{theme}</span>
                         </div>
                       </button>
@@ -110,7 +117,15 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                     {(['small', 'medium', 'large'] as const).map((size) => (
                       <button
                         key={size}
-                        onClick={() => handlePreferenceChange('fontSize', size)}
+                        onClick={() => {
+                          handlePreferenceChange('fontSize', size);
+                          // Apply font size to document
+                          const root = document.documentElement;
+                          root.classList.remove('text-sm', 'text-base', 'text-lg');
+                          if (size === 'small') root.classList.add('text-sm');
+                          else if (size === 'large') root.classList.add('text-lg');
+                          else root.classList.add('text-base');
+                        }}
                         className={`p-3 rounded-lg border-2 transition-colors ${
                           preferences.fontSize === size
                             ? 'border-primary bg-primary/10'
@@ -132,7 +147,11 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                   <label className="text-sm font-medium mb-3 block">Language</label>
                   <select
                     value={preferences.language}
-                    onChange={(e) => handlePreferenceChange('language', e.target.value)}
+                    onChange={(e) => {
+                      handlePreferenceChange('language', e.target.value);
+                      // Apply language to document
+                      document.documentElement.lang = e.target.value;
+                    }}
                     className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   >
                     <option value="en">English</option>
@@ -140,6 +159,9 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                     <option value="fr">Français</option>
                     <option value="de">Deutsch</option>
                     <option value="zh">中文</option>
+                    <option value="pt">Português</option>
+                    <option value="it">Italiano</option>
+                    <option value="ja">日本語</option>
                   </select>
                 </div>
               </CardContent>

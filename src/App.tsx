@@ -9,11 +9,15 @@ import { ProgressView } from './components/Views/ProgressView';
 import { SettingsView } from './components/Views/SettingsView';
 import { UserSetup } from './components/Views/UserSetup';
 import { useGameStore } from './store/gameStore';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { currentUser } = useGameStore();
+  
+  // Initialize theme
+  useTheme();
 
   // Show user setup if no current user
   if (!currentUser) {

@@ -7,14 +7,13 @@ A comprehensive educational puzzle game designed to improve learning and engagem
 ## 🎯 Features
 
 ### 🧩 Diverse Puzzle Types
-- **Crossword Puzzles**: Interactive word puzzles with clues
-- **Word Search**: Find hidden words in letter grids
+- **Crossword Puzzles**: Educational crossword puzzles with subject-specific content
+- **Image Scramble**: Rearrange scattered image pieces into the correct order
 - **Memory Games**: Match pairs and test recall abilities
 - **Pattern Recognition**: Complete sequences and identify patterns
 - **Riddles**: Brain teasers and logic challenges
 - **Math Problems**: From basic arithmetic to advanced equations
 - **Science Experiments**: Interactive learning experiences
-- **Geography Challenges**: World knowledge and map skills
 - **Logic Puzzles**: Critical thinking and reasoning
 
 ### 👥 Multiplayer Experience
@@ -33,13 +32,15 @@ A comprehensive educational puzzle game designed to improve learning and engagem
 ### ⚙️ Accessibility & Customization
 - **Age-Appropriate Content**: Tailored for children, teens, and adults
 - **Accessibility Features**: High contrast mode, reduced motion, screen reader support
-- **Multiple Languages**: Support for English, Spanish, French, German, and Chinese
+- **Multiple Languages**: Support for English, Spanish, French, German, Chinese, Portuguese, Italian, and Japanese
 - **Customizable Interface**: Adjustable font sizes and themes
 - **Keyboard Navigation**: Full keyboard support for all features
+- **Audio Pronunciation**: Voice pronunciation for hints, questions, and explanations
 
 ### 🎨 Modern Design
 - **Responsive Layout**: Works seamlessly on mobile, tablet, and desktop
 - **Dark/Light Themes**: Choose your preferred visual style
+- **System Theme Support**: Automatically adapts to your device's theme preference
 - **Smooth Animations**: Engaging micro-interactions and transitions
 - **Intuitive Navigation**: Easy-to-use interface for all age groups
 
@@ -87,7 +88,7 @@ The built files will be in the `dist` directory, ready for deployment.
 
 ### Solo Play Mode
 1. Navigate to "Play Solo" from the main menu
-2. Select subjects you want to practice (Math, Science, Language, etc.)
+2. Select subjects you want to practice (Math, Science, Logic, Creativity, Crossword, Image Puzzles)
 3. Choose your difficulty level (1-7)
 4. Set the number of puzzles (5, 10, or 15)
 5. Start playing and track your progress!
@@ -119,6 +120,8 @@ The built files will be in the `dist` directory, ready for deployment.
 - **Game Engine**: Handles puzzle logic and scoring
 - **User Management**: Profile creation and progress tracking
 - **Multiplayer System**: Real-time collaboration features
+- **Audio System**: Text-to-speech functionality for accessibility
+- **Theme System**: Dynamic theme switching with system preference detection
 - **Accessibility Layer**: WCAG-compliant features
 - **Analytics Engine**: Progress tracking and insights
 
@@ -139,9 +142,10 @@ The application uses Zustand for state management with the following stores:
 ### Subject-Specific Learning
 - **Mathematics**: From basic arithmetic to advanced concepts
 - **Science**: Interactive experiments and concept exploration
-- **Language Arts**: Vocabulary building and reading comprehension
-- **Geography**: World knowledge and spatial awareness
-- **History**: Timeline understanding and historical connections
+- **Logic**: Critical thinking and reasoning challenges
+- **Creativity**: Imaginative problem-solving and artistic expression
+- **Crossword Puzzles**: Educational word puzzles across various subjects
+- **Image Puzzles**: Spatial reasoning and visual processing skills
 
 ### Social Learning
 - **Collaboration**: Work together to solve complex problems
@@ -221,7 +225,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Version 1.1 (Coming Soon)
 - [ ] AI-powered puzzle generation
-- [ ] Voice commands and audio feedback
+- [x] Audio pronunciation assistance
 - [ ] Offline mode support
 - [ ] Parent/teacher dashboard
 
@@ -230,6 +234,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Advanced analytics and insights
 - [ ] Curriculum alignment tools
 - [ ] API for third-party integrations
+- [ ] Voice commands for hands-free interaction
+- [ ] Advanced image recognition for custom puzzles
 
 ---
 
