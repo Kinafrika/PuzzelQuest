@@ -159,16 +159,22 @@ export function CrosswordGame({
           <div>
             <h4 className="font-semibold mb-2">Across</h4>
             {puzzle.clues.filter(clue => clue.direction === 'across').map(clue => (
-              <div key={clue.number} className="text-sm mb-1">
+              <div key={clue.number} className="text-sm mb-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
                 <span className="font-medium">{clue.number}.</span> {clue.clue}
+                <div className="mt-1">
+                  <AudioPlayer text={clue.clue} />
+                </div>
               </div>
             ))}
           </div>
           <div>
             <h4 className="font-semibold mb-2">Down</h4>
             {puzzle.clues.filter(clue => clue.direction === 'down').map(clue => (
-              <div key={clue.number} className="text-sm mb-1">
+              <div key={clue.number} className="text-sm mb-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
                 <span className="font-medium">{clue.number}.</span> {clue.clue}
+                <div className="mt-1">
+                  <AudioPlayer text={clue.clue} />
+                </div>
               </div>
             ))}
           </div>
@@ -211,6 +217,9 @@ export function CrosswordGame({
                   className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg text-sm"
                 >
                   💡 {hint}
+                  <div className="mt-2">
+                    <AudioPlayer text={hint} />
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -240,6 +249,9 @@ export function CrosswordGame({
                 <p className="text-sm text-muted-foreground">
                   {puzzle.explanation}
                 </p>
+                <div className="mt-2">
+                  <AudioPlayer text={puzzle.explanation} />
+                </div>
               </div>
             </motion.div>
           )}

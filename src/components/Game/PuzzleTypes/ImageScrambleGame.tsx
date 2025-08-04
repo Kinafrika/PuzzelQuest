@@ -246,6 +246,9 @@ export function ImageScrambleGame({
                   className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg text-sm"
                 >
                   💡 {hint}
+                  <div className="mt-2">
+                    <AudioPlayer text={hint} />
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -275,6 +278,9 @@ export function ImageScrambleGame({
                 <p className="text-sm text-muted-foreground">
                   Completed in {moves} moves. {puzzle.explanation}
                 </p>
+                <div className="mt-2">
+                  <AudioPlayer text={puzzle.explanation} />
+                </div>
               </div>
             </motion.div>
           )}

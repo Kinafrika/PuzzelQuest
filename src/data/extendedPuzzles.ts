@@ -317,6 +317,149 @@ export const extendedPuzzleDatabase: ExtendedPuzzle[] = [
     timeLimit: 240,
     points: 30,
     tags: ['image-puzzle', 'mathematics', 'geometry']
+  } as ImageScramblePuzzle,
+
+  // Level 3 (Hard) Puzzles
+  {
+    id: 'crossword-003',
+    type: 'crossword',
+    subject: 'crossword',
+    difficulty: 3,
+    title: 'Advanced Mathematics',
+    description: 'Complete this challenging crossword about advanced math concepts',
+    question: 'Fill in the crossword puzzle using the mathematical clues provided',
+    grid: [
+      ['', '', '', 'C', 'A', 'L', 'C', 'U', 'L', 'U', 'S'],
+      ['', '', '', 'O', '', '', '', '', '', '', ''],
+      ['A', 'L', 'G', 'E', 'B', 'R', 'A', '', '', '', ''],
+      ['', '', '', 'F', '', '', '', '', '', '', ''],
+      ['', '', '', 'F', '', '', '', '', '', '', ''],
+      ['', '', '', 'I', '', '', '', '', '', '', ''],
+      ['', '', '', 'C', '', '', '', '', '', '', ''],
+      ['', '', '', 'I', '', '', '', '', '', '', ''],
+      ['', '', '', 'E', '', '', '', '', '', '', ''],
+      ['', '', '', 'N', '', '', '', '', '', '', ''],
+      ['', '', '', 'T', '', '', '', '', '', '', '']
+    ],
+    solution: [
+      ['', '', '', 'C', 'A', 'L', 'C', 'U', 'L', 'U', 'S'],
+      ['', '', '', 'O', '', '', '', '', '', '', ''],
+      ['A', 'L', 'G', 'E', 'B', 'R', 'A', '', '', '', ''],
+      ['', '', '', 'F', '', '', '', '', '', '', ''],
+      ['', '', '', 'F', '', '', '', '', '', '', ''],
+      ['', '', '', 'I', '', '', '', '', '', '', ''],
+      ['', '', '', 'C', '', '', '', '', '', '', ''],
+      ['', '', '', 'I', '', '', '', '', '', '', ''],
+      ['', '', '', 'E', '', '', '', '', '', '', ''],
+      ['', '', '', 'N', '', '', '', '', '', '', ''],
+      ['', '', '', 'T', '', '', '', '', '', '', '']
+    ],
+    clues: [
+      { number: 1, clue: 'Branch of mathematics dealing with derivatives and integrals', answer: 'CALCULUS', direction: 'across', startRow: 0, startCol: 3 },
+      { number: 2, clue: 'Mathematical system using letters to represent numbers', answer: 'ALGEBRA', direction: 'across', startRow: 2, startCol: 0 },
+      { number: 3, clue: 'A numerical factor in a term', answer: 'COEFFICIENT', direction: 'down', startRow: 0, startCol: 3 }
+    ],
+    explanation: 'This crossword focuses on advanced mathematical concepts and terminology',
+    hints: ['Think about higher-level math courses', 'Consider mathematical operations and systems'],
+    timeLimit: 300,
+    points: 50,
+    tags: ['crossword', 'mathematics', 'advanced']
+  } as CrosswordPuzzle,
+
+  {
+    id: 'image-scramble-003',
+    type: 'image-scramble',
+    subject: 'image-puzzle',
+    difficulty: 3,
+    title: 'Complex Circuit Diagram',
+    description: 'Reconstruct the electronic circuit diagram',
+    question: 'Arrange the scrambled pieces to complete the circuit diagram',
+    originalImageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=400',
+    scrambledPieces: [
+      { id: '1', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,0,100,100', correctPosition: 0, currentPosition: 8 },
+      { id: '2', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=100,0,100,100', correctPosition: 1, currentPosition: 3 },
+      { id: '3', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=200,0,100,100', correctPosition: 2, currentPosition: 6 },
+      { id: '4', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,100,100,100', correctPosition: 3, currentPosition: 1 },
+      { id: '5', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=100,100,100,100', correctPosition: 4, currentPosition: 7 },
+      { id: '6', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=200,100,100,100', correctPosition: 5, currentPosition: 2 },
+      { id: '7', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=0,200,100,100', correctPosition: 6, currentPosition: 4 },
+      { id: '8', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=100,200,100,100', correctPosition: 7, currentPosition: 5 },
+      { id: '9', imageUrl: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=200,200,100,100', correctPosition: 8, currentPosition: 0 }
+    ],
+    gridSize: { rows: 3, cols: 3 },
+    explanation: 'Complex mechanical systems require understanding of interconnected components',
+    hints: ['Look for gear connections and mechanical linkages', 'Start with corner pieces and work inward'],
+    timeLimit: 360,
+    points: 40,
+    tags: ['image-puzzle', 'engineering', 'complex']
+  } as ImageScramblePuzzle,
+
+  // Level 4 (Expert) Puzzles
+  {
+    id: 'crossword-004',
+    type: 'crossword',
+    subject: 'crossword',
+    difficulty: 4,
+    title: 'Scientific Terminology',
+    description: 'Master-level crossword with advanced scientific terms',
+    question: 'Complete this expert-level crossword about scientific concepts',
+    grid: [
+      ['P', 'H', 'O', 'T', 'O', 'S', 'Y', 'N', 'T', 'H', 'E', 'S', 'I', 'S'],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    ],
+    solution: [
+      ['P', 'H', 'O', 'T', 'O', 'S', 'Y', 'N', 'T', 'H', 'E', 'S', 'I', 'S'],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    ],
+    clues: [
+      { number: 1, clue: 'Process by which plants convert light energy into chemical energy', answer: 'PHOTOSYNTHESIS', direction: 'across', startRow: 0, startCol: 0 }
+    ],
+    explanation: 'Expert-level scientific terminology requires deep understanding of complex processes',
+    hints: ['Think about biological processes involving light', 'Consider how plants make their own food'],
+    timeLimit: 420,
+    points: 75,
+    tags: ['crossword', 'science', 'expert', 'biology']
+  } as CrosswordPuzzle,
+
+  {
+    id: 'image-scramble-004',
+    type: 'image-scramble',
+    subject: 'image-puzzle',
+    difficulty: 4,
+    title: 'Molecular Structure',
+    description: 'Reconstruct the complex molecular diagram',
+    question: 'Arrange the pieces to complete the molecular structure',
+    originalImageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=400',
+    scrambledPieces: [
+      { id: '1', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=0,0,80,80', correctPosition: 0, currentPosition: 15 },
+      { id: '2', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=80,0,80,80', correctPosition: 1, currentPosition: 8 },
+      { id: '3', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=160,0,80,80', correctPosition: 2, currentPosition: 11 },
+      { id: '4', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=240,0,80,80', correctPosition: 3, currentPosition: 4 },
+      { id: '5', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=0,80,80,80', correctPosition: 4, currentPosition: 12 },
+      { id: '6', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=80,80,80,80', correctPosition: 5, currentPosition: 7 },
+      { id: '7', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=160,80,80,80', correctPosition: 6, currentPosition: 2 },
+      { id: '8', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=240,80,80,80', correctPosition: 7, currentPosition: 14 },
+      { id: '9', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=0,160,80,80', correctPosition: 8, currentPosition: 9 },
+      { id: '10', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=80,160,80,80', correctPosition: 9, currentPosition: 1 },
+      { id: '11', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=160,160,80,80', correctPosition: 10, currentPosition: 6 },
+      { id: '12', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=240,160,80,80', correctPosition: 11, currentPosition: 13 },
+      { id: '13', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=0,240,80,80', correctPosition: 12, currentPosition: 3 },
+      { id: '14', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=80,240,80,80', correctPosition: 13, currentPosition: 10 },
+      { id: '15', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=160,240,80,80', correctPosition: 14, currentPosition: 5 },
+      { id: '16', imageUrl: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop&crop=240,240,80,80', correctPosition: 15, currentPosition: 0 }
+    ],
+    gridSize: { rows: 4, cols: 4 },
+    explanation: 'Molecular structures require precise understanding of atomic arrangements and chemical bonds',
+    hints: ['Look for molecular bonds and atomic connections', 'Consider symmetry in molecular structures'],
+    timeLimit: 480,
+    points: 60,
+    tags: ['image-puzzle', 'chemistry', 'expert', 'molecular']
   } as ImageScramblePuzzle
 ];
 

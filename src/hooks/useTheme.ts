@@ -2,10 +2,31 @@ import { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 
 export function useTheme() {
-  const { theme, setTheme } = useGameStore();
+  const { theme, setTheme, currentUser } = useGameStore();
 
   useEffect(() => {
     const root = document.documentElement;
+    
+    // Apply accessibility preferences
+    if (currentUser?.preferences.highContrast) {
+      root.classList.add('high-contrast');
+    } else {
+      root.classList.remove('high-contrast');
+    }
+    
+    if (currentUser?.preferences.reducedMotion) {
+      root.classList.add('reduced-motion');
+    } else {
+      root.classList.remove('reduced-motion');
+    }
+    
+    // Apply font size
+    if (currentUser?.preferences.fontSize) {
+      root.classList.remove('text-sm', 'text-base', 'text-lg');
+      if (currentUser.preferences.fontSize === 'small') root.classList.add('text-sm');
+      else if (currentUser.preferences.fontSize === 'large') root.classList.add('text-lg');
+      else root.classList.add('text-base');
+    }
     
     if (theme === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -32,7 +53,7 @@ export function useTheme() {
     } else {
       root.classList.remove('dark');
     }
-  }, [theme]);
+  }, [theme, currentUser?.preferences]);
 
   return { theme, setTheme };
 }
