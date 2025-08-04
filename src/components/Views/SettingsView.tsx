@@ -186,7 +186,17 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                     </p>
                   </div>
                   <button
-                    onClick={() => handlePreferenceChange('highContrast', !preferences.highContrast)}
+                    onClick={() => {
+                      const newValue = !preferences.highContrast;
+                      handlePreferenceChange('highContrast', newValue);
+                      // Apply high contrast mode to document
+                      const root = document.documentElement;
+                      if (newValue) {
+                        root.classList.add('high-contrast');
+                      } else {
+                        root.classList.remove('high-contrast');
+                      }
+                    }}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                       preferences.highContrast ? 'bg-primary' : 'bg-gray-200'
                     }`}
@@ -208,7 +218,17 @@ export function SettingsView({ onViewChange }: SettingsViewProps) {
                     </p>
                   </div>
                   <button
-                    onClick={() => handlePreferenceChange('reducedMotion', !preferences.reducedMotion)}
+                    onClick={() => {
+                      const newValue = !preferences.reducedMotion;
+                      handlePreferenceChange('reducedMotion', newValue);
+                      // Apply reduced motion to document
+                      const root = document.documentElement;
+                      if (newValue) {
+                        root.classList.add('reduced-motion');
+                      } else {
+                        root.classList.remove('reduced-motion');
+                      }
+                    }}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                       preferences.reducedMotion ? 'bg-primary' : 'bg-gray-200'
                     }`}

@@ -34,33 +34,6 @@ function App() {
         return <MultiplayerView onViewChange={setCurrentView} />;
       case 'progress':
         return <ProgressView onViewChange={setCurrentView} />;
-      case 'subjects':
-        return (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-bold mb-4">Subject Explorer</h2>
-            <p className="text-muted-foreground">
-              Deep dive into specific subjects and curriculum alignment.
-            </p>
-          </div>
-        );
-      case 'games':
-        return (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-bold mb-4">Game Types</h2>
-            <p className="text-muted-foreground">
-              Explore different puzzle types and game mechanics.
-            </p>
-          </div>
-        );
-      case 'achievements':
-        return (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-bold mb-4">Achievements</h2>
-            <p className="text-muted-foreground">
-              Your accomplishments and badges will be displayed here.
-            </p>
-          </div>
-        );
       case 'settings':
         return <SettingsView onViewChange={setCurrentView} />;
       default:

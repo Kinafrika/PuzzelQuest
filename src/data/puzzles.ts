@@ -175,14 +175,13 @@ export function getAdaptivePuzzles(
   subjects: Subject[],
   count: number = 5
 ): (Puzzle | ExtendedPuzzle)[] {
-  const targetDifficulty = Math.max(1, Math.min(7, userLevel));
-  const difficultyRange = [targetDifficulty - 1, targetDifficulty, targetDifficulty + 1];
+  const targetDifficulty = Math.max(1, Math.min(4, userLevel));
   
   // Combine both puzzle databases
   const allPuzzles = [...samplePuzzles, ...extendedPuzzleDatabase];
   
   const filtered = allPuzzles.filter(p => 
-    difficultyRange.includes(p.difficulty) && 
+    p.difficulty === targetDifficulty && 
     subjects.includes(p.subject)
   );
   

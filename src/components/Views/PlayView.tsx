@@ -16,8 +16,8 @@ interface PlayViewProps {
 export function PlayView({ onViewChange }: PlayViewProps) {
   const { currentUser, startSession, isPlaying } = useGameStore();
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>(['mathematics', 'logic']);
-  const [selectedDifficulty, setSelectedDifficulty] = useState<number>(3);
-  const [puzzleCount, setPuzzleCount] = useState<number>(5);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<number>(1);
+  const [puzzleCount, setPuzzleCount] = useState<number>(3);
 
   const subjects: { id: Subject; label: string; icon: string }[] = [
     { id: 'mathematics', label: 'Mathematics', icon: '🔢' },
@@ -28,6 +28,15 @@ export function PlayView({ onViewChange }: PlayViewProps) {
     { id: 'image-puzzle', label: 'Image Scramble', icon: '🖼️' },
   ];
 
+  const difficultyLevels = [
+    { level: 1, label: 'Easy', puzzleCounts: [3, 5, 7] },
+    { level: 2, label: 'Medium', puzzleCounts: [4, 6, 8] },
+    { level: 3, label: 'Hard', puzzleCounts: [5, 7] },
+    { level: 4, label: 'Expert', puzzleCounts: [2, 5, 10] },
+  ];
+
+  const currentDifficultyData = difficultyLevels.find(d => d.level === selectedDifficulty);
+
   const handleSubjectToggle = (subject: Subject) => {
     setSelectedSubjects(prev => 
       prev.includes(subject)
@@ -36,11 +45,18 @@ export function PlayView({ onViewChange }: PlayViewProps) {
     );
   };
 
+  const handleDifficultyChange = (level: number) => {
+    setSelectedDifficulty(level);
+    const diffData = difficultyLevels.find(d => d.level === level);
+    if (diffData) {
+      setPuzzleCount(diffData.puzzleCounts[0]); // Set to first available count
+    }
+  };
   const handleStartGame = () => {
     if (selectedSubjects.length === 0) return;
     
     const puzzles = getAdaptivePuzzles(
-      currentUser?.stats.difficultyPreference || selectedDifficulty,
+      selectedDifficulty,
       selectedSubjects,
       puzzleCount
     );
@@ -118,23 +134,23 @@ export function PlayView({ onViewChange }: PlayViewProps) {
                 Difficulty Level
               </label>
               <div className="space-y-2">
-                {[1, 2, 3, 4, 5, 6, 7].map((level) => (
+                {difficultyLevels.map((diffData) => (
                   <button
-                    key={level}
-                    onClick={() => setSelectedDifficulty(level)}
+                    key={diffData.level}
+                    onClick={() => handleDifficultyChange(diffData.level)}
                     className={`w-full p-2 text-left rounded border ${
-                      selectedDifficulty === level
+                      selectedDifficulty === diffData.level
                         ? 'border-primary bg-primary/10'
                         : 'border-border hover:border-primary/50'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Level {level}</span>
+                      <span className="text-sm">Level {diffData.level}</span>
                       <Badge 
-                        variant={selectedDifficulty === level ? 'default' : 'outline'}
+                        variant={selectedDifficulty === diffData.level ? 'default' : 'outline'}
                         className="text-xs"
                       >
-                        {level <= 2 ? 'Easy' : level <= 4 ? 'Medium' : level <= 6 ? 'Hard' : 'Expert'}
+                        {diffData.label}
                       </Badge>
                     </div>
                   </button>
@@ -148,7 +164,7 @@ export function PlayView({ onViewChange }: PlayViewProps) {
                 Number of Puzzles
               </label>
               <div className="grid grid-cols-3 gap-2">
-                {[5, 10, 15].map((count) => (
+                {currentDifficultyData?.puzzleCounts.map((count) => (
                   <button
                     key={count}
                     onClick={() => setPuzzleCount(count)}

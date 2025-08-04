@@ -71,7 +71,7 @@ export function UserSetup() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-lg"
+                  className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-lg bg-background text-foreground"
                   placeholder="Enter your name"
                   required
                 />
@@ -91,7 +91,7 @@ export function UserSetup() {
                   type="number"
                   value={age}
                   onChange={(e) => setAge(parseInt(e.target.value) || 0)}
-                  className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-lg"
+                  className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-lg bg-background text-foreground"
                   min="1"
                   max="120"
                   required

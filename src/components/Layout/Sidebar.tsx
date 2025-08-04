@@ -25,9 +25,6 @@ const navigationItems = [
   { id: 'play', label: 'Play Solo', icon: Brain },
   { id: 'multiplayer', label: 'Play Together', icon: Users },
   { id: 'progress', label: 'Progress', icon: BarChart3 },
-  { id: 'subjects', label: 'Subjects', icon: BookOpen },
-  { id: 'games', label: 'Game Types', icon: Gamepad2 },
-  { id: 'achievements', label: 'Achievements', icon: Award },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
