@@ -147,6 +147,22 @@ input::placeholder {
   opacity: 0.8;
 }
 
+/* Fix input text color in dark mode */
+input {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+}
+
+.dark input {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--input));
+}
+
+/* Ensure input text is visible in all themes */
+input:focus {
+  color: hsl(var(--foreground)) !important;
+}
+
 /* Focus indicators for keyboard navigation */
 .focus-visible:focus-visible {
   @apply ring-2 ring-ring ring-offset-2 ring-offset-background outline-none;

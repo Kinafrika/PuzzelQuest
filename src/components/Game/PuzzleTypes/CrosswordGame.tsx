@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../ui/Card';
 import { Button } from '../../ui/Button';
 import { Badge } from '../../ui/Badge';
+import { AudioPlayer } from '../../ui/AudioPlayer';
 import { CrosswordPuzzle } from '../../../data/puzzleTypes';
 import { Clock, Lightbulb, CheckCircle, XCircle } from 'lucide-react';
 import { formatTime, getDifficultyColor } from '../../../lib/utils';
