@@ -12,9 +12,10 @@ export interface CrosswordClue {
 
 export interface CrosswordPuzzle extends Omit<Puzzle, 'type' | 'options' | 'correctAnswer'> {
   type: 'crossword';
-  grid: string[][];
+  grid: (string | null)[][];
   clues: CrosswordClue[];
-  solution: string[][];
+  availableWords: string[];
+  wordBank: string[];
 }
 
 // Word search puzzle
@@ -92,8 +93,9 @@ export interface JigsawPuzzle extends Omit<Puzzle, 'type' | 'options' | 'correct
 export interface ImageScramblePuzzle extends Omit<Puzzle, 'type' | 'options' | 'correctAnswer'> {
   type: 'image-scramble';
   originalImageUrl: string;
-  scrambledPieces: { id: string; imageUrl: string; correctPosition: number; currentPosition: number }[];
+  pieces: { id: string; correctPosition: number; currentPosition: number }[];
   gridSize: { rows: number; cols: number };
+  theme: string;
 }
 
 export type ExtendedPuzzle = 

@@ -23,13 +23,15 @@ export function CrosswordGame({
   showResult = false, 
   isCorrect = false 
 }: CrosswordGameProps) {
-  const [userGrid, setUserGrid] = useState<string[][]>(
-    puzzle.grid.map(row => row.map(cell => cell === '' ? '' : cell))
+  const [userGrid, setUserGrid] = useState<(string | null)[][]>(
+    puzzle.grid.map(row => row.map(cell => cell === null ? null : ''))
   );
-  const [selectedCell, setSelectedCell] = useState<{row: number, col: number} | null>(null);
+  const [selectedWord, setSelectedWord] = useState<string>('');
+  const [selectedClue, setSelectedClue] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(puzzle.timeLimit || 0);
   const [startTime] = useState(Date.now());
   const [hints, setHints] = useState<string[]>([]);
+  const [usedWords, setUsedWords] = useState<string[]>([]);
 
   useEffect(() => {
     if (!puzzle.timeLimit) return;
@@ -47,12 +49,37 @@ export function CrosswordGame({
     return () => clearInterval(timer);
   }, [puzzle.timeLimit]);
 
-  const handleCellChange = (row: number, col: number, value: string) => {
-    if (value.length > 1) return;
-    
+  const handleWordSelect = (word: string) => {
+    if (usedWords.includes(word)) return;
+    setSelectedWord(word);
+  };
+
+  const handleClueSelect = (clueNumber: number) => {
+    setSelectedClue(clueNumber);
+  };
+
+  const handlePlaceWord = () => {
+    if (!selectedWord || selectedClue === null) return;
+
+    const clue = puzzle.clues.find(c => c.number === selectedClue);
+    if (!clue || clue.answer !== selectedWord) return;
+
+    // Place the word in the grid
     const newGrid = [...userGrid];
-    newGrid[row][col] = value.toUpperCase();
+    const { startRow, startCol, direction, answer } = clue;
+
+    for (let i = 0; i < answer.length; i++) {
+      const row = direction === 'down' ? startRow + i : startRow;
+      const col = direction === 'across' ? startCol + i : startCol;
+      if (newGrid[row] && newGrid[row][col] !== null) {
+        newGrid[row][col] = answer[i];
+      }
+    }
+
     setUserGrid(newGrid);
+    setUsedWords(prev => [...prev, selectedWord]);
+    setSelectedWord('');
+    setSelectedClue(null);
   };
 
   const handleSubmit = () => {
@@ -83,14 +110,14 @@ export function CrosswordGame({
   };
 
   const getCellClass = (row: number, col: number) => {
-    const isSelected = selectedCell?.row === row && selectedCell?.col === col;
-    const isEmpty = puzzle.grid[row][col] === '';
+    const isActive = puzzle.grid[row][col] !== null;
+    const hasValue = userGrid[row][col] && userGrid[row][col] !== '';
     
     return `
-      w-8 h-8 border border-gray-300 text-center text-sm font-bold
-      ${isEmpty ? 'bg-gray-800' : 'bg-white'}
-      ${isSelected ? 'ring-2 ring-blue-500' : ''}
-      ${isEmpty ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-blue-50'}
+      w-8 h-8 border border-gray-300 text-center text-sm font-bold flex items-center justify-center
+      ${!isActive ? 'bg-gray-800' : 'bg-white dark:bg-gray-100'}
+      ${!isActive ? 'cursor-not-allowed' : 'cursor-pointer'}
+      ${hasValue ? 'text-blue-600' : 'text-gray-400'}
     `;
   };
 
@@ -120,6 +147,9 @@ export function CrosswordGame({
         <div>
           <p className="text-sm text-muted-foreground mb-2">{puzzle.description}</p>
           <p className="text-lg font-medium">{puzzle.question}</p>
+          <div className="mt-2">
+            <AudioPlayer text={puzzle.question} />
+          </div>
         </div>
 
         {/* Crossword Grid */}
@@ -129,15 +159,9 @@ export function CrosswordGame({
               <div key={rowIndex} className="flex">
                 {row.map((cell, colIndex) => (
                   <div key={`${rowIndex}-${colIndex}`} className="relative">
-                    <input
-                      type="text"
-                      value={userGrid[rowIndex][colIndex]}
-                      onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
-                      onClick={() => setSelectedCell({row: rowIndex, col: colIndex})}
-                      className={getCellClass(rowIndex, colIndex)}
-                      disabled={puzzle.grid[rowIndex][colIndex] === '' || showResult}
-                      maxLength={1}
-                    />
+                    <div className={getCellClass(rowIndex, colIndex)}>
+                      {userGrid[rowIndex][colIndex] || ''}
+                    </div>
                     {/* Number labels for clue starts */}
                     {puzzle.clues.some(clue => 
                       clue.startRow === rowIndex && clue.startCol === colIndex
@@ -155,31 +179,65 @@ export function CrosswordGame({
           </div>
         </div>
 
-        {/* Clues */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h4 className="font-semibold mb-2">Across</h4>
-            {puzzle.clues.filter(clue => clue.direction === 'across').map(clue => (
-              <div key={clue.number} className="text-sm mb-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
-                <span className="font-medium">{clue.number}.</span> {clue.clue}
-                <div className="mt-1">
-                  <AudioPlayer text={clue.clue} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Down</h4>
-            {puzzle.clues.filter(clue => clue.direction === 'down').map(clue => (
-              <div key={clue.number} className="text-sm mb-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
-                <span className="font-medium">{clue.number}.</span> {clue.clue}
-                <div className="mt-1">
-                  <AudioPlayer text={clue.clue} />
-                </div>
-              </div>
+        {/* Word Bank */}
+        <div>
+          <h4 className="font-semibold mb-2">Word Bank:</h4>
+          <div className="flex flex-wrap gap-2">
+            {puzzle.wordBank.map((word) => (
+              <button
+                key={word}
+                onClick={() => handleWordSelect(word)}
+                disabled={usedWords.includes(word)}
+                className={`px-3 py-2 rounded border text-sm font-medium transition-colors ${
+                  usedWords.includes(word)
+                    ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                    : selectedWord === word
+                    ? 'bg-blue-500 text-white border-blue-500'
+                    : 'bg-white border-gray-300 hover:border-blue-300'
+                }`}
+              >
+                {word}
+              </button>
             ))}
           </div>
         </div>
+
+        {/* Clues */}
+        <div>
+          <h4 className="font-semibold mb-2">Clues:</h4>
+          <div className="space-y-2">
+            {puzzle.clues.map(clue => (
+              <button
+                key={clue.number}
+                onClick={() => handleClueSelect(clue.number)}
+                className={`w-full text-left p-3 rounded border transition-colors ${
+                  selectedClue === clue.number
+                    ? 'bg-blue-50 border-blue-300'
+                    : 'bg-gray-50 dark:bg-gray-800 border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">
+                    <span className="font-medium">{clue.number}. {clue.direction}</span> - {clue.clue}
+                  </span>
+                  <span className="text-xs text-gray-500">({clue.answer.length} letters)</span>
+                </div>
+                <div className="mt-1">
+                  <AudioPlayer text={clue.clue} />
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Place Word Button */}
+        {selectedWord && selectedClue && (
+          <div className="text-center">
+            <Button onClick={handlePlaceWord} className="px-6">
+              Place "{selectedWord}" in position {selectedClue}
+            </Button>
+          </div>
+        )}
 
         <div className="flex items-center justify-between">
           <Button

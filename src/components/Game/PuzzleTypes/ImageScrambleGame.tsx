@@ -23,7 +23,7 @@ export function ImageScrambleGame({
   showResult = false, 
   isCorrect = false 
 }: ImageScrambleGameProps) {
-  const [pieces, setPieces] = useState(puzzle.scrambledPieces);
+  const [pieces, setPieces] = useState(puzzle.pieces);
   const [selectedPiece, setSelectedPiece] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(puzzle.timeLimit || 0);
   const [startTime] = useState(Date.now());
@@ -99,9 +99,19 @@ export function ImageScrambleGame({
   };
 
   const resetPuzzle = () => {
-    setPieces(puzzle.scrambledPieces);
+    setPieces(puzzle.pieces);
     setSelectedPiece(null);
     setMoves(0);
+  };
+
+  // Generate image piece URL based on position
+  const getPieceImageUrl = (pieceId: string, position: number) => {
+    const { rows, cols } = puzzle.gridSize;
+    const row = Math.floor(parseInt(pieceId) / cols);
+    const col = parseInt(pieceId) % cols;
+    
+    // Create a canvas-based image slice (simplified for demo)
+    return `${puzzle.originalImageUrl}&crop=${col * (300/cols)},${row * (300/rows)},${300/cols},${300/rows}`;
   };
 
   return (
@@ -130,6 +140,9 @@ export function ImageScrambleGame({
         <div>
           <p className="text-sm text-muted-foreground mb-2">{puzzle.description}</p>
           <p className="text-lg font-medium">{puzzle.question}</p>
+          <div className="mt-2">
+            <AudioPlayer text={puzzle.question} />
+          </div>
         </div>
 
         {/* Original Image Preview */}
@@ -176,10 +189,13 @@ export function ImageScrambleGame({
                   onClick={() => piece && handlePieceClick(piece.id)}
                 >
                   {piece && (
-                    <img
-                      src={piece.imageUrl}
-                      alt={`Piece ${piece.id}`}
-                      className="w-full h-full object-cover rounded-md"
+                    <div 
+                      className="w-full h-full rounded-md bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(${puzzle.originalImageUrl})`,
+                        backgroundPosition: `${-(parseInt(piece.id) % puzzle.gridSize.cols) * 100}% ${-Math.floor(parseInt(piece.id) / puzzle.gridSize.cols) * 100}%`,
+                        backgroundSize: `${puzzle.gridSize.cols * 100}% ${puzzle.gridSize.rows * 100}%`
+                      }}
                     />
                   )}
                 </motion.div>
