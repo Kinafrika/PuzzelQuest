@@ -96,21 +96,28 @@ export function CrosswordGame({
         const col = direction === 'across' ? startCol + i : startCol;
         if (userGrid[row]?.[col] !== answer[i]) {
           return false;
-        }
+    // Handle backspace and delete properly
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      e.preventDefault();
       }
       return true;
     });
   };
-
-  const handleHintRequest = () => {
+      // Move to previous cell on backspace
+      if (e.key === 'Backspace') {
     const hint = onHint();
     if (hint) {
       setHints(prev => [...prev, hint]);
     }
   };
-
-  const getCellClass = (row: number, col: number) => {
-    const isActive = puzzle.grid[row][col] !== null;
+      return;
+    }
+    
+    // Handle letter input
+    if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+      e.preventDefault();
+    if (showResult || !puzzle.grid[row] || puzzle.grid[row][col] === null) return;
+      newGrid[row][col] = e.key.toUpperCase();
     const hasValue = userGrid[row][col] && userGrid[row][col] !== '';
     
     return `
@@ -118,7 +125,62 @@ export function CrosswordGame({
       ${!isActive ? 'bg-gray-800' : 'bg-white dark:bg-gray-100'}
       ${!isActive ? 'cursor-not-allowed' : 'cursor-pointer'}
       ${hasValue ? 'text-blue-600' : 'text-gray-400'}
+    }
+    
+    // Handle arrow key navigation
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+      const nextCell = findCellInDirection(row, col, e.key);
+      if (nextCell) {
+        setSelectedCell(nextCell);
+      }
     `;
+  };
+
+  const findCellInDirection = (row: number, col: number, direction: string): {row: number, col: number} | null => {
+    let newRow = row;
+    let newCol = col;
+    
+    switch (direction) {
+      case 'ArrowUp':
+        newRow = Math.max(0, row - 1);
+        break;
+      case 'ArrowDown':
+        newRow = Math.min(puzzle.grid.length - 1, row + 1);
+        break;
+      case 'ArrowLeft':
+        newCol = Math.max(0, col - 1);
+        break;
+      case 'ArrowRight':
+        newCol = Math.min(puzzle.grid[0].length - 1, col + 1);
+        break;
+    }
+    
+    // Find the next valid cell
+    while (newRow >= 0 && newRow < puzzle.grid.length && 
+           newCol >= 0 && newCol < puzzle.grid[0].length) {
+      if (puzzle.grid[newRow][newCol] !== null) {
+        return { row: newRow, col: newCol };
+      }
+      
+      // Continue in the same direction
+      switch (direction) {
+        case 'ArrowUp':
+          newRow--;
+          break;
+        case 'ArrowDown':
+          newRow++;
+          break;
+        case 'ArrowLeft':
+          newCol--;
+          break;
+        case 'ArrowRight':
+          newCol++;
+          break;
+      }
+    }
+    
+    return null;
   };
 
   return (

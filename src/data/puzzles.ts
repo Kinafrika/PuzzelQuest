@@ -173,16 +173,101 @@ export function getPuzzlesBySubject(subject: Subject, count: number = 5): Puzzle
 export function getAdaptivePuzzles(
   userLevel: number,
   subjects: Subject[],
-  count: number = 5
+  count: number = 5,
+  ageGroup?: 'child' | 'teen' | 'adult'
 ): (Puzzle | ExtendedPuzzle)[] {
+  // Ensure we have valid parameters
+  if (!subjects || subjects.length === 0) {
+    console.warn('getAdaptivePuzzles: No subjects provided, using default subjects');
+    subjects = ['mathematics', 'logic'];
+  }
+  
+  if (count <= 0) {
+    console.warn('getAdaptivePuzzles: Invalid count provided, using default count of 5');
+    count = 5;
+  }
+  
   const targetDifficulty = Math.max(1, Math.min(4, userLevel));
   
   // Combine both puzzle databases
   const allPuzzles = [...samplePuzzles, ...extendedPuzzleDatabase];
   
-  const filtered = allPuzzles.filter(p => 
-    p.difficulty === targetDifficulty && 
-    subjects.includes(p.subject)
+  // Filter puzzles based on difficulty, subjects, and age group
+  let filtered = allPuzzles.filter(p => {
+    if (!p || !p.subject || !p.difficulty) {
+      console.warn('getAdaptivePuzzles: Invalid puzzle found', p);
+      return false;
+    }
+    
+    const difficultyMatch = p.difficulty === targetDifficulty;
+    const subjectMatch = subjects.includes(p.subject);
+    
+    // Age group filtering
+    let ageMatch = true;
+    if (ageGroup) {
+      switch (ageGroup) {
+        case 'child':
+          ageMatch = p.difficulty <= 2;
+          break;
+        case 'teen':
+          ageMatch = p.difficulty >= 2 && p.difficulty <= 3;
+          break;
+        case 'adult':
+          ageMatch = p.difficulty >= 3;
+          break;
+      }
+    }
+    
+    return difficultyMatch && subjectMatch && ageMatch;
+  });
+  
+  // If we don't have enough puzzles, expand the search
+  if (filtered.length < count) {
+    console.warn(`getAdaptivePuzzles: Not enough puzzles found (${filtered.length}/${count}), expanding search`);
+    
+    // Try adjacent difficulty levels
+    const adjacentDifficulties = [targetDifficulty - 1, targetDifficulty + 1].filter(d => d >= 1 && d <= 4);
+    
+    for (const difficulty of adjacentDifficulties) {
+      const additionalPuzzles = allPuzzles.filter(p => {
+        if (!p || !p.subject || !p.difficulty) return false;
+        
+        const difficultyMatch = p.difficulty === difficulty;
+        const subjectMatch = subjects.includes(p.subject);
+        const notAlreadyIncluded = !filtered.find(fp => fp.id === p.id);
+        
+        return difficultyMatch && subjectMatch && notAlreadyIncluded;
+      });
+      
+      filtered = [...filtered, ...additionalPuzzles];
+      
+      if (filtered.length >= count) break;
+    }
+  }
+  
+  // Final fallback: use any available puzzles from selected subjects
+  if (filtered.length < count) {
+    const fallbackPuzzles = allPuzzles.filter(p => {
+      if (!p || !p.subject) return false;
+      const subjectMatch = subjects.includes(p.subject);
+      const notAlreadyIncluded = !filtered.find(fp => fp.id === p.id);
+      return subjectMatch && notAlreadyIncluded;
+    });
+    
+    filtered = [...filtered, ...fallbackPuzzles];
+  }
+  
+  // Shuffle and return requested count
+  const shuffled = filtered
+    .filter(p => p && p.id) // Final safety check
+    .sort(() => Math.random() - 0.5);
+    
+  const result = shuffled.slice(0, count);
+  
+  console.log(`getAdaptivePuzzles: Returning ${result.length} puzzles for difficulty ${targetDifficulty}, subjects: ${subjects.join(', ')}`);
+  
+  return result;
+}
   );
   
   // Shuffle and return requested count

@@ -305,6 +305,59 @@ export const crosswordPuzzles: CrosswordPuzzle[] = [
     ],
     availableWords: ['MILLENNIUM'],
     wordBank: ['MILLENNIUM', 'CENTURY', 'DECADE', 'YEAR']
+  },
+  {
+    id: 'crossword-005',
+    type: 'crossword',
+    subject: 'crossword',
+    difficulty: 4,
+    title: 'Scientific Terms',
+    description: 'Advanced scientific vocabulary crossword',
+    question: 'Complete this challenging science crossword',
+    explanation: 'Excellent! You have mastered advanced scientific terminology.',
+    hints: ['PHOTOSYNTHESIS is how plants make food', 'ECOSYSTEM includes all living and non-living things', 'GRAVITY pulls objects toward Earth'],
+    timeLimit: 720,
+    points: 60,
+    tags: ['science', 'advanced', 'biology'],
+    grid: [
+      [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ['P', 'H', 'O', 'T', 'O', 'S', 'Y', 'N', 'T', 'H', 'E', 'S', 'I', 'S', null],
+      [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ['E', 'C', 'O', 'S', 'Y', 'S', 'T', 'E', 'M', null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ['G', 'R', 'A', 'V', 'I', 'T', 'Y', null, null, null, null, null, null, null, null]
+    ],
+    clues: [
+      {
+        number: 1,
+        clue: 'Process by which plants make their own food using sunlight',
+        answer: 'PHOTOSYNTHESIS',
+        direction: 'across',
+        startRow: 2,
+        startCol: 0
+      },
+      {
+        number: 2,
+        clue: 'A community of living organisms and their environment',
+        answer: 'ECOSYSTEM',
+        direction: 'across',
+        startRow: 5,
+        startCol: 0
+      },
+      {
+        number: 3,
+        clue: 'Force that pulls objects toward the center of the Earth',
+        answer: 'GRAVITY',
+        direction: 'across',
+        startRow: 8,
+        startCol: 0
+      }
+    ],
+    availableWords: ['PHOTOSYNTHESIS', 'ECOSYSTEM', 'GRAVITY'],
+    wordBank: ['PHOTOSYNTHESIS', 'ECOSYSTEM', 'GRAVITY', 'BIOLOGY', 'CHEMISTRY', 'PHYSICS']
   }
 ];
 

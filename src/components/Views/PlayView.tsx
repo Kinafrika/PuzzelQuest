@@ -55,11 +55,23 @@ export function PlayView({ onViewChange }: PlayViewProps) {
   const handleStartGame = () => {
     if (selectedSubjects.length === 0) return;
     
+    const ageGroup = currentUser?.ageGroup;
+    
     const puzzles = getAdaptivePuzzles(
       selectedDifficulty,
       selectedSubjects,
-      puzzleCount
+      puzzleCount,
+      ageGroup
     );
+    
+    // Safety check for puzzle generation
+    if (!puzzles || puzzles.length === 0) {
+      console.error('PlayView: No puzzles generated');
+      // You could show an error message to the user here
+      return;
+    }
+    
+    console.log(`PlayView: Starting game with ${puzzles.length} puzzles`);
     
     startSession(puzzles);
   };

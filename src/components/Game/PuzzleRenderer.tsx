@@ -1,6 +1,7 @@
 import React from 'react';
 import { ExtendedPuzzle, CrosswordPuzzle, WordSearchPuzzle, RiddlePuzzle, PatternPuzzle, MemoryCardPuzzle } from '../../data/puzzleTypes';
 import { ImageScramblePuzzle } from '../../data/puzzleTypes';
+import { Puzzle } from '../../types';
 import { CrosswordGame } from './PuzzleTypes/CrosswordGame';
 import { WordSearchGame } from './PuzzleTypes/WordSearchGame';
 import { RiddleGame } from './PuzzleTypes/RiddleGame';
@@ -10,7 +11,7 @@ import { ImageScrambleGame } from './PuzzleTypes/ImageScrambleGame';
 import { PuzzleCard } from './PuzzleCard';
 
 interface PuzzleRendererProps {
-  puzzle: ExtendedPuzzle;
+  puzzle: ExtendedPuzzle | Puzzle;
   onAnswer: (answer: string | number, timeSpent: number) => void;
   onHint: () => string | null;
   showResult?: boolean;
@@ -24,6 +25,17 @@ export function PuzzleRenderer({
   showResult = false, 
   isCorrect = false 
 }: PuzzleRendererProps) {
+  
+  // Safety check for undefined puzzle
+  if (!puzzle || !puzzle.type) {
+    console.error('PuzzleRenderer: Invalid puzzle data received', puzzle);
+    return (
+      <div className="p-8 text-center">
+        <h3 className="text-lg font-semibold text-red-600 mb-2">Puzzle Loading Error</h3>
+        <p className="text-muted-foreground">Unable to load puzzle. Please try again.</p>
+      </div>
+    );
+  }
   
   const renderSpecializedPuzzle = () => {
     switch (puzzle.type) {
